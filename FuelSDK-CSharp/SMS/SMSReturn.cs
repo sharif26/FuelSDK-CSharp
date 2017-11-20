@@ -85,7 +85,7 @@ namespace FuelSDK.SMS
 
         internal static string SendMessageToList(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            SMSResponse resp = ExecuteFuel(obj, "POST", true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var jObj = JObject.Parse(resp.Response);
@@ -221,6 +221,22 @@ namespace FuelSDK.SMS
                 throw new FuelSDKException(GetErrors(resp));
             }
         }
+
+        internal static SMSHistoryResponse GetQueueMOTrackingHistory(FuelObject obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, "GET", false);
+            if (!string.IsNullOrWhiteSpace(resp.Response))
+            {
+                var trackObj = JObject.Parse(resp.Response);
+                return JsonConvert.DeserializeObject<SMSHistoryResponse>(trackObj.ToString());
+            }
+            else
+            {
+
+                throw new FuelSDKException(GetErrors(resp));
+            }
+        }
+
 
         private static string[] GetErrors(SMSResponse resp)
         {

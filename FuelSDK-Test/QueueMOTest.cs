@@ -61,8 +61,8 @@ namespace FuelSDK.Test
                 MessageText = "MC_SDK",
                 ShortCode = "10766790"
             };
-            var response = queue.QueueMOForSubscribers();
-            Assert.AreEqual(response.Code, HttpStatusCode.Accepted);
+            qResponse = queue.QueueMOForSubscribers();
+            Assert.AreEqual(qResponse.Code, HttpStatusCode.Accepted);
 
         }
 
@@ -73,6 +73,17 @@ namespace FuelSDK.Test
             foreach (var resp in qResponse.Results)
             {
                 var response = queue.GetDeliveryStatus(resp.Identifier);
+                Assert.IsNotNull(response);
+            }
+        }
+
+        [Test()]
+        public void GetQueueMOTrackingHistory()
+        {
+            QueueMessageForSubscribers();
+            foreach (var resp in qResponse.Results)
+            {
+                var response = queue.GetTrackingHistory(resp.Identifier);
                 Assert.IsNotNull(response);
             }
         }

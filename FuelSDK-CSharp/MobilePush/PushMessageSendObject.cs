@@ -14,6 +14,9 @@ namespace FuelSDK.MobilePush
         /// Get or set Message Id
         /// </summary>
         public string MessageId { get; set; }
+
+        public string TokenId { get; set; }
+
         /// <summary>
         /// Get override message flag. When the message text changed, this flag will set to true.
         /// </summary>

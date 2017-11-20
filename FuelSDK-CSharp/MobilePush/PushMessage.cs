@@ -214,7 +214,7 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
         /// <returns>Returns true if successfully accepted for sending.</returns>
-        public static bool SendPushMessage(PushMessageSendObject sendObj)
+        public static string SendPushMessage(PushMessageSendObject sendObj)
         {
             return MobilePushReturn.SendPushMessage(sendObj);
         }
@@ -223,7 +223,7 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
         /// <returns>Returns true if successfully accepted for sending.</returns>
-        public static bool SendPushMessageToList(PushMessageSendObject sendObj)
+        public static string SendPushMessageToList(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageList/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
@@ -233,7 +233,7 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
         /// <returns>Returns true if successfully accepted for sending.</returns>
-        public static bool SendPushMessageToTaggedUsers(PushMessageSendObject sendObj)
+        public static string SendPushMessageToTaggedUsers(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageTag/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
@@ -243,7 +243,7 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
         /// <returns>Returns true if successfully accepted for sending.</returns>
-        public static bool SendPushMessageToDevices(PushMessageSendObject sendObj)
+        public static string SendPushMessageToDevices(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageContact/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
@@ -259,6 +259,38 @@ namespace FuelSDK.MobilePush
         public static bool SendPushMessageBatch(ETClient client, string messageId, PushMessageSendObject[] payload)
         {
             return MobilePushReturn.SendPushMessageBatch(client, messageId, payload);
+        }
+
+        public static PushMessageDeliveryStatus GetPushMessageStatus(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageApp/{MessageId}/deliveries/{TokenId}";
+            sendObj.URLProperties = new string[2] { "MessageId", "TokenId" };
+            sendObj.RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
+            return MobilePushReturn.GetPushMessageStatus(sendObj);
+        }
+
+        public static PushMessageDeliveryStatus GetPushMessageToListStatus(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageList/{MessageId}/deliveries/{TokenId}";
+            sendObj.URLProperties = new string[2] { "MessageId", "TokenId" };
+            sendObj.RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
+            return MobilePushReturn.GetPushMessageStatus(sendObj);
+        }
+
+        public static PushMessageDeliveryStatus GetPushMessageToTaggedUsersStatus(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageTag/{MessageId}/deliveries/{TokenId}";
+            sendObj.URLProperties = new string[2] { "MessageId", "TokenId" };
+            sendObj.RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
+            return MobilePushReturn.GetPushMessageStatus(sendObj);
+        }
+
+        public static PushMessageDeliveryStatus GetPushMessageToDeviceStatus(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageContact/{MessageId}/deliveries/{TokenId}";
+            sendObj.URLProperties = new string[2] { "MessageId", "TokenId" };
+            sendObj.RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
+            return MobilePushReturn.GetPushMessageStatus(sendObj);
         }
     
     }

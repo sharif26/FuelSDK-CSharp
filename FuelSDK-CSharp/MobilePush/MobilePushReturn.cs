@@ -260,12 +260,43 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        internal static bool SendPushMessage(PushMessageSendObject obj)
+        //internal static bool SendPushMessage(PushMessageSendObject obj)
+        //{
+        //    var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
+        //    if (resp.Code == HttpStatusCode.Accepted)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        var errors = GetErrorList(resp.Message);
+        //        throw new FuelSDKException(errors);
+        //    }
+        //}
+
+        internal static string SendPushMessage(PushMessageSendObject obj)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
-                return true;
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["tokenId"].ToString();
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static PushMessageDeliveryStatus GetPushMessageStatus(PushMessageSendObject obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                var ret = JsonConvert.DeserializeObject<PushMessageDeliveryStatus>(resp.Response);
+                ret.Code = resp.Code;
+                return ret;
             }
             else
             {

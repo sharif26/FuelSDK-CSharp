@@ -93,7 +93,21 @@ namespace FuelSDK.SMS
             URLProperties = new string[1] { "TokenId" };
             RequiredURLProperties = new string[1] { "TokenId" };
             return SMSReturn.GetQueueMODeliveryStatus(this);
-
         }
+
+        /// <summary>
+        /// Get tracking history of Queue MO message.
+        /// </summary>
+        /// <param name="tokenId">Token Id received during successfull Queue MO request for which tracking history is requested.</param>
+        /// <returns>Tracking information for each subscribers.<see cref="T:namespace FuelSDK.SMS.SMSHistoryResponse"/></returns>
+        public SMSHistoryResponse GetTrackingHistory(string tokenId)
+        {
+            TokenId = tokenId;
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/queueMO/history/{TokenId}";
+            URLProperties = new string[1] { "TokenId" };
+            RequiredURLProperties = new string[1] { "TokenId" };
+            return SMSReturn.GetQueueMOTrackingHistory(this);
+        }
+
     }
 }

@@ -19,7 +19,7 @@ namespace FuelSDK.Test
             client = new ETClient();
         }
 
-        [SetUp]
+/*        [SetUp]
         public void PushMessageSetup()
         {
             PushMessageKey pk = new PushMessageKey
@@ -98,56 +98,91 @@ namespace FuelSDK.Test
             Assert.IsTrue(retVal);
             pushMessage = null;
         }
-
+*/
         [Test()]
-        public void SendPushMessage()
+        public void SendPushMessageAndGetStatus()
         {
             PushMessageSendObject msgObj = new PushMessageSendObject
             {
                 AuthStub = client
             };
-            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.MessageId = "NjA6MTE0OjA";
             msgObj.OverrideMessageText = "You won million dollars";
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessage(msgObj);
-            Assert.IsTrue(retval);
+            //Assert.IsTrue(retval);
+            Assert.NotNull(retval);
+
+            msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NjA6MTE0OjA";
+            msgObj.TokenId = retval;
+            var getval = PushMessage.GetPushMessageStatus(msgObj);
+            Assert.NotNull(getval.CreateDate);
+            Assert.NotNull(getval.MessageId);
+            Assert.NotNull(getval.Status);
 
         }
 
         [Test()]
-        public void SendPushMessageToList()
+        public void SendPushMessageToListAndGetStatus()
         {
             PushMessageSendObject msgObj = new PushMessageSendObject
             {
                 AuthStub = client
             };
-            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.MessageId = "NjA6MTE0OjA";
             msgObj.OverrideMessageText = "Have a safe drive!";
             msgObj.InclusionListIds = new string[] { "ce3b32fb-77af-e711-80d3-1402ec6b9528" };
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"); ;
-            var retval = PushMessage.SendPushMessage(msgObj);
-            Assert.IsTrue(retval);
+            var retval = PushMessage.SendPushMessageToList(msgObj);
+            Assert.NotNull(retval);
+
+
+            msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NjA6MTE0OjA";
+            msgObj.TokenId = retval;
+            var getval = PushMessage.GetPushMessageToListStatus(msgObj);
+            Assert.NotNull(getval.CreateDate);
+            Assert.NotNull(getval.MessageId);
+            Assert.NotNull(getval.Status);
+            //Assert.IsTrue(retval);
 
         }
 
         [Test()]
-        public void SendPushMessageToTagUser()
+        public void SendPushMessageToTagUserAndGetStatus()
         {
             PushMessageSendObject msgObj = new PushMessageSendObject
             {
                 AuthStub = client
             };
-            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.MessageId = "NjA6MTE0OjA";
             msgObj.OverrideMessageText = "Have a safe drive!";
             msgObj.InclusionTags = new string[] { "ALL6 More" };
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessageToTaggedUsers(msgObj);
-            Assert.IsTrue(retval);
+            Assert.NotNull(retval);
 
+            msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NjA6MTE0OjA";
+            msgObj.TokenId = retval;
+            var getval = PushMessage.GetPushMessageToTaggedUsersStatus(msgObj);
+            Assert.NotNull(getval.CreateDate);
+            Assert.NotNull(getval.MessageId);
+            Assert.NotNull(getval.Status);
         }
 
-        [Test()]
-        public void SendPushMessageToDevices()
+      [Test()]
+        public void SendPushMessageToDevicesAndGetStatus()
         {
             PushMessageSendObject msgObj = new PushMessageSendObject
             {
@@ -159,7 +194,20 @@ namespace FuelSDK.Test
             //msgObj.SubscriberKeys = new string[] { "sharifahmed" };
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessageToDevices(msgObj);
-            Assert.IsTrue(retval);
+            //Assert.IsTrue(retval);
+            Assert.NotNull(retval);
+
+            msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NjA6MTE0OjA";
+            msgObj.TokenId = retval;
+            var getval = PushMessage.GetPushMessageToDeviceStatus(msgObj);
+            Assert.NotNull(getval.CreateDate);
+            Assert.NotNull(getval.ScheduledDate);
+            Assert.NotNull(getval.MessageId);
+            Assert.NotNull(getval.Status);
         }
 
         [Test()]
