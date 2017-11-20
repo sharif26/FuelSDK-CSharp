@@ -20,7 +20,6 @@ namespace FuelSDK.Test
         public void Setup()
         {
             client = new ETClient();
-            //random = Guid.NewGuid().ToString().Replace("-", string.Empty).Replace("+", string.Empty).Substring(0, 6);
         }
 
         [Test()]
@@ -42,6 +41,7 @@ namespace FuelSDK.Test
             var response = smsopt.CreateOptInMessage();
             Debug.WriteLine("Code=" + response.Code);
             Debug.WriteLine("Error=" + response.Error);
+            Assert.NotNull(response);
         }
     }
 }

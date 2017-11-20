@@ -49,7 +49,7 @@ namespace FuelSDK.MobilePush
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
-                throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
+                throw new FuelSDKException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
             return MobilePushReturn.DeleteCustomKeys(this, RequestMethod.DELETE);
         }
@@ -62,11 +62,11 @@ namespace FuelSDK.MobilePush
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
-                throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
+                throw new FuelSDKException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
             if (KeyName == null || KeyName.Length == 0)
             {
-                throw new ApplicationException("KeyName is either null or empty. Need to specify KeyName.");
+                throw new FuelSDKException("KeyName is either null or empty. Need to specify KeyName.");
             }
             Endpoint = "https://www.exacttargetapis.com/push/v1/application/{ApplicationId}/key/{KeyName}";
             URLProperties = new[] { "ApplicationId", "KeyName" };
@@ -74,11 +74,15 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.DeleteOneCustomKey(this, RequestMethod.DELETE);
         }
 
+        /// <summary>
+        /// Get custom keys.
+        /// </summary>
+        /// <returns>MobilePushCustomKey object <see cref="T:namespace FuelSDK.MobilePush.MobilePushCustomKey"/></returns>
         public MobilePushCustomKey GetCustomKeys()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
-                throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
+                throw new FuelSDKException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
             // code to get all Custom Keys & return response  with array of Custom Key objects
             return MobilePushReturn.GetCustomKeys(this, RequestMethod.GET);
@@ -92,11 +96,11 @@ namespace FuelSDK.MobilePush
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
-                throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
+                throw new FuelSDKException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
             if (KeyName == null || KeyName.Length == 0)
             {
-                throw new ApplicationException("KeyName is either null or empty. Need to specify KeyName.");
+                throw new FuelSDKException("KeyName is either null or empty. Need to specify KeyName.");
             }
             // code to update Custom Key & return response
             Endpoint = "https://www.exacttargetapis.com/push/v1/application/{ApplicationId}/key/{KeyName}";
@@ -113,11 +117,11 @@ namespace FuelSDK.MobilePush
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
-                throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
+                throw new FuelSDKException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
             if (KeyName == null || KeyName.Length == 0)
             {
-                throw new ApplicationException("KeyName is either null or empty. Need to specify KeyName.");
+                throw new FuelSDKException("KeyName is either null or empty. Need to specify KeyName.");
             }
             Endpoint = "https://www.exacttargetapis.com/push/v1/application/{ApplicationId}/key/{KeyName}";
             URLProperties = new[] { "ApplicationId", "KeyName" };
